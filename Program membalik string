@@ -1,0 +1,36 @@
+;Program dengan bahasa assembly menggunakan emu8086
+;membalik posisi urutan karakter sebuah string
+;yang paling depan menjadi yang paling belakang
+;demikian yang paling belakang menjadi yang paling depan
+ORG 100H
+MULAI:
+MOV CX, 0
+MOV DX, MSG1
+MOV AH, 9
+INT 21H
+
+MASUKKAN:
+INC CX
+MOV AH, 1
+INT 21H
+PUSH AX
+CMP AL, 13
+JNE MASUKKAN
+
+MOV DX, MSG2
+MOV AH, 9
+INT 21H
+
+BALIK:
+POP DX
+MOV AH, 2
+INT 21H
+LOOP BALIK
+
+KELUAR:
+MOV AH, 4CH
+INT 21H
+
+MSG1:   DB ;67,82,69,65,84,69,68,32,66,89,32,71,73,76,65,78,71,32,65,75,65,32,76,79,75,73,13,10
+        DB 13,10,77,65,83,85,75,75,65,78,32,75,65,82,65,75,84,69,82,32,40,65,75,72,73,82,73,32,68,69,78,71,65,78,32,69,78,84,69,82,41,32,58,13,10,36
+MSG2:   DB 0DH,0AH,44H,49H,42H,41H,4CH,49H,4BH,20H,4DH,45H,4EH,4AH,41H,44H,49H,3AH,0DH,0AH,24H
